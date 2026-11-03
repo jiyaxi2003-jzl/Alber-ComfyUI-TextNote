@@ -1,0 +1,23 @@
+[project]
+name = "alber-text-note"
+description = "ComfyUI 文本备注节点：左侧编辑内容，右侧切换备注列表，支持自定义字体与字号缩放。"
+version = "1.0.0"
+license = { text = "MIT" }
+requires-python = ">=3.9"
+dependencies = []
+keywords = ["comfyui", "custom-node", "note", "annotation", "text"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Repository = "https://github.com/jiyaxi2003-jzl/Alber-ComfyUI-TextNote"
+Issues = "https://github.com/jiyaxi2003-jzl/Alber-ComfyUI-TextNote/issues"
+"Bug Tracker" = "https://github.com/jiyaxi2003-jzl/Alber-ComfyUI-TextNote/issues"
+
+[tool.comfy]
+PublisherId = "alber"
+DisplayName = "Alber-文本备注 Text Note"
+Icon = "https://raw.githubusercontent.com/jiyaxi2003-jzl/Alber-ComfyUI-TextNote/main/preview.png"

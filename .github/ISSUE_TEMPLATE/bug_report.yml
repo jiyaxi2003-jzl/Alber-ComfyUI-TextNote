@@ -1,0 +1,72 @@
+name: Bug 报告
+description: 使用 Alber-文本备注 时遇到问题，请在这里反馈
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈！提交前请先确认：
+        - 已重启 ComfyUI 并强制刷新浏览器（`Ctrl + F5`）
+        - 已把浏览器控制台（F12）里的报错信息一并贴上来
+
+  - type: input
+    id: version
+    attributes:
+      label: 插件版本
+      description: 见 `pyproject.toml` 里的 version 字段
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: input
+    id: comfyui
+    attributes:
+      label: ComfyUI 版本
+      description: 启动日志里会打印，或看前端界面底部
+      placeholder: "v0.3.x / 前端 1.x"
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: 浏览器
+      placeholder: "Chrome 130 / Edge 130 / Firefox 132"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 问题描述
+      description: 发生了什么？期望的结果是什么？
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+      placeholder: |
+        1. 打开 ComfyUI，新建工作流
+        2. 添加 Alber-文本备注 节点
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 控制台报错 / 日志
+      description: 浏览器 F12 控制台或 ComfyUI 启动日志里的相关内容
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: 截图
+      description: 直接把图片拖进来即可
+    validations:
+      required: false

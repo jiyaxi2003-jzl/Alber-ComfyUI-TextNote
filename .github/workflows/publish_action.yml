@@ -1,0 +1,35 @@
+# 推送到 main 且 pyproject.toml 有变更时，自动发布到 Comfy Registry
+#
+# 使用前请完成三件事：
+#   1. 确认 GITHUB_OWNER 与你的仓库所有者一致（当前为 jiyaxi2003-jzl）
+#   2. pyproject.toml 里 [tool.comfy] PublisherId 填你在 registry.comfy.org 注册的 publisher id
+#   3. 在仓库 Settings -> Secrets and variables -> Actions 里添加 REGISTRY_ACCESS_TOKEN
+name: Publish to Comfy Registry
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "pyproject.toml"
+
+permissions:
+  contents: read
+
+env:
+  GITHUB_OWNER: jiyaxi2003-jzl
+
+jobs:
+  publish-node:
+    name: Publish Custom Node to registry
+    runs-on: ubuntu-latest
+    if: ${{ github.repository_owner == 'jiyaxi2003-jzl' }}
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Publish Custom Node
+        uses: Comfy-Org/publish-node-action@main
+        with:
+          personal_access_token: ${{ secrets.REGISTRY_ACCESS_TOKEN }}

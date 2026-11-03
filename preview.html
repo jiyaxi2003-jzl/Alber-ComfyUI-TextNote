@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Alber-文本备注 Text Note · 效果预览</title>
+<style>
+	* { box-sizing: border-box; }
+	html, body {
+		margin: 0;
+		height: 100%;
+	}
+	body {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 22px;
+		background: #121214;
+		background-image:
+			linear-gradient(rgba(255,255,255,.022) 1px, transparent 1px),
+			linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px);
+		background-size: 22px 22px;
+		font-family: system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;
+		color: #7a7a82;
+	}
+
+	/* 模拟一个 ComfyUI 节点 */
+	.alber-preview-node {
+		width: 480px;
+		height: 352px;
+		border-radius: 8px;
+		background: #1d1d1f;
+		border: 1px solid #4a4a50;
+		box-shadow: 0 10px 32px rgba(0,0,0,.55);
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+	}
+	.alber-preview-node-title {
+		flex: 0 0 30px;
+		display: flex;
+		align-items: center;
+		padding: 0 12px;
+		background: #2a2a2e;
+		border-bottom: 1px solid #3a3a3d;
+		border-radius: 7px 7px 0 0;
+		font-size: 12.5px;
+		font-weight: 500;
+		color: #d8d8dc;
+		letter-spacing: .3px;
+	}
+	.alber-preview-node-body {
+		flex: 1 1 auto;
+		min-height: 0;
+		padding: 6px;
+		display: flex;
+	}
+	.alber-preview-node-body > .alber-tn-root { flex: 1 1 auto; }
+
+	.alber-preview-tip {
+		font-size: 12px;
+		line-height: 1.9;
+		text-align: center;
+		color: #63636b;
+	}
+	.alber-preview-tip kbd {
+		display: inline-block;
+		padding: 1px 5px;
+		border: 1px solid #3a3a40;
+		border-bottom-width: 2px;
+		border-radius: 4px;
+		background: #232327;
+		color: #b6b6bd;
+		font-family: inherit;
+		font-size: 11px;
+	}
+</style>
+</head>
+<body>
+
+	<div class="alber-preview-node">
+		<div class="alber-preview-node-title">Alber-文本备注 Text Note</div>
+		<div class="alber-preview-node-body" id="host"></div>
+	</div>
+
+	<div class="alber-preview-tip">
+		字体下拉可换字体 · <kbd>Ctrl</kbd> + 滚轮 或 <kbd>A-</kbd> / <kbd>A+</kbd> 缩放字号 · <kbd>Ctrl</kbd>+<kbd>0</kbd> 复位<br />
+		右侧列表切换备注，悬停条目右侧 <b>×</b> 可删除，<b>+</b> 新增
+	</div>
+
+	<script src="web/alber_note_panel.js"></script>
+	<script>
+		(function () {
+			const host = document.getElementById("host");
+			const panel = new window.__ALBER_TEXT_NOTE__.AlberNotePanel(null, null);
+
+			// 演示数据，仅用于预览
+			const demo = [
+				"正面提示词记录\n\n画面：黄昏时分的海边小镇，暖色逆光，胶片颗粒感\n风格：写实摄影 / 35mm 定焦\n负面：blurry, lowres, extra fingers",
+				"常用采样参数备忘\n\nsteps 28 / cfg 6.5 / dpmpp_2m + karras\n分辨率 1024×1024，hires fix 放大 1.5 倍",
+				"",
+			];
+			const fonts = window.__ALBER_TEXT_NOTE__.FONTS;
+
+			panel.state = {
+				activeId: "demo-1",
+				items: demo.map((text, i) => ({
+					id: "demo-" + (i + 1),
+					text: text,
+					fontSize: 14 + (i === 1 ? 1 : 0),
+					fontFamily: fonts[i % fonts.length].value,
+				})),
+			};
+			panel.refresh();
+			panel.save = function () { /* 预览模式不持久化 */ };
+
+			host.appendChild(panel.el);
+		})();
+	</script>
+</body>
+</html>
